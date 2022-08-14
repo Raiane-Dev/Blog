@@ -1,0 +1,19 @@
+version: "3.2"
+services:
+ blog:
+    container_name: blog
+    build:
+      context: .
+      dockerfile: dockerfile
+    volumes:
+      - ./Backend/src:/app/src
+      - ./Backend/libraries/:/app/libraries
+    ports:
+      - 80:80
+    tty: true
+    restart: always
+
+volumes:
+  app:
+    driver: Backend
+  postgres:
