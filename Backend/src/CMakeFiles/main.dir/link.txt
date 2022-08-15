@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/main.dir/Server.cpp.o  -o /app/build/bin/main /app/libraries/vcpkg_installed/x64-linux/debug/lib/libPocoFoundationd.a /app/libraries/vcpkg_installed/x64-linux/debug/lib/libpcre.a /app/libraries/vcpkg_installed/x64-linux/lib/libz.a -lpthread -ldl -lrt 

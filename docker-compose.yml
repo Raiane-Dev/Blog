@@ -6,7 +6,8 @@ services:
       context: .
       dockerfile: dockerfile
     volumes:
-      - ./Backend/src:/app/src
+      - ./Backend/app/:/app/build
+      - ./Backend/src/:/app/src
       - ./Backend/libraries/:/app/libraries
     ports:
       - 80:80

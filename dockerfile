@@ -11,6 +11,7 @@ RUN apt update && \
 RUN apt-get install --yes \
     build-essential \
     git \ 
+    make \
     cmake \ 
     curl \
     pkg-config \
@@ -28,4 +29,4 @@ RUN git clone https://github.com/Microsoft/vcpkg.git && \
     ./vcpkg/bootstrap-vcpkg.sh && \
     ./vcpkg/vcpkg integrate install
 
-RUN ["bash", "-c", "./vcpkg/vcpkg install poco"]
+# RUN ["bash", "-c", "./vcpkg/vcpkg install poco"]
