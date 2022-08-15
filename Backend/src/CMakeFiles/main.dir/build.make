@@ -80,6 +80,12 @@ main_EXTERNAL_OBJECTS =
 /app/build/bin/main: CMakeFiles/main.dir/Server.cpp.o
 /app/build/bin/main: CMakeFiles/main.dir/build.make
 /app/build/bin/main: /app/libraries/vcpkg_installed/x64-linux/debug/lib/libPocoFoundationd.a
+/app/build/bin/main: /app/libraries/vcpkg_installed/x64-linux/debug/lib/libPocoUtild.a
+/app/build/bin/main: /app/libraries/vcpkg_installed/x64-linux/debug/lib/libPocoNetd.a
+/app/build/bin/main: /app/libraries/vcpkg_installed/x64-linux/debug/lib/libPocoXMLd.a
+/app/build/bin/main: /app/libraries/vcpkg_installed/x64-linux/debug/lib/libexpat.a
+/app/build/bin/main: /app/libraries/vcpkg_installed/x64-linux/debug/lib/libPocoJSONd.a
+/app/build/bin/main: /app/libraries/vcpkg_installed/x64-linux/debug/lib/libPocoFoundationd.a
 /app/build/bin/main: /app/libraries/vcpkg_installed/x64-linux/debug/lib/libpcre.a
 /app/build/bin/main: /app/libraries/vcpkg_installed/x64-linux/lib/libz.a
 /app/build/bin/main: CMakeFiles/main.dir/link.txt

@@ -31,7 +31,7 @@ project(PocoTimer)
 set(CMAKE_PREFIX_PATH /app/libraries/vcpkg_installed/x64-linux)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /app/build/bin)
 
-find_package(Poco REQUIRED Foundation Net XML Zip Data JSON)
+find_package(Poco REQUIRED Foundation Net XML Zip Data JSON Util)
 
 add_executable(
     main Server.cpp
@@ -39,5 +39,5 @@ add_executable(
 
 target_link_libraries(
     main
-    PRIVATE Poco::Foundation
+    PRIVATE Poco::Foundation Poco::Util Poco::Net
 )
