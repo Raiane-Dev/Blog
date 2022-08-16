@@ -26,7 +26,7 @@
 
 cmake_minimum_required(VERSION 3.13.4)
 
-project(PocoTimer)
+project(Application)
 
 set(CMAKE_PREFIX_PATH /app/libraries/vcpkg_installed/x64-linux)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /app/build/bin)
@@ -34,7 +34,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /app/build/bin)
 find_package(Poco REQUIRED Foundation Net XML Zip Data JSON Util)
 
 add_executable(
-    main Server.cpp
+    main app/Server.cpp
 )
 
 target_link_libraries(

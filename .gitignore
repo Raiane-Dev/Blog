@@ -1,3 +1,4 @@
 .history
 Backend/.env
 Backend/libraries/*
+Backend/app/bin/*
