@@ -11,9 +11,20 @@ services:
       - ./Backend/libraries/:/app/libraries
     ports:
       - 80:80
+      - 8088:8088
     tty: true
+    links:
+      - database
     restart: always
-
+ database:
+    container_name: database
+    image: postgres:10.3
+    env_file: ./Backend/src/.env
+    volumes:
+        - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
 volumes:
   app:
     driver: Backend

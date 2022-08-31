@@ -1,73 +1,62 @@
 #include <iostream>
-#include <vector>
+#include <cstdlib>
 
-#include <Poco/Util/ServerApplication.h>
-#include <Poco/Net/ServerSocket.h>
-#include <Poco/Net/HTTPServer.h>
+#include <oatpp/web/server/HttpConnectionHandler.hpp>
+#include <oatpp/network/Server.hpp>
+#include <oatpp/network/tcp/server/ConnectionProvider.hpp>
 
-#include <Poco/Net/HTTPRequestHandlerFactory.h>
+// #include "../includes/routes/Marker.hpp"
+#include "../includes/config/Database.hpp"
 
-#include <Poco/Net/HTTPRequestHandler.h>
-#include <Poco/Net/HTTPServerRequest.h>
-#include <Poco/Net/HTTPServerResponse.h>
-
-using namespace std;
-
-class PageHandler: public Poco::Net::HTTPRequestHandler
+void run()
 {
 
-    public:
-        void handleRequest(
-            Poco::Net::HTTPServerRequest& request, Poco::Net::HTTPServerResponse& response
-        ) {
-            response.setChunkedTransferEncoding(true);
-            response.setContentType("text/html");
+    const std::string host = "localhost";
+    const uint16_t port = 8088;
+    /**
+     * Router for HTTP request routing
+     */
+    auto router = oatpp::web::server::HttpRouter::createShared();
+    // Routes::Marker routerMark = Routes::Marker{};
+    Config::Database;
+    
+    /**
+     * HTTP connection handler with router
+     */
+    auto connectionHandler = oatpp::web::server::HttpConnectionHandler::createShared(router);
+    
+    /**
+     * TCP connection provider
+     */
+    auto connectionProvider = oatpp::network::tcp::server::ConnectionProvider::createShared({
+        host, port, oatpp::network::Address::IP_4
+    });
 
-            std::ostream& responseStream = response.send();
+    /**
+     * Server which takes provided TCP connections and passes
+     */
+    oatpp::network::Server server(connectionProvider, connectionHandler);
 
-            responseStream << "<html><head> <title> MY SERVER HTTP </title> </head>";
-            responseStream << "<body> <h1> MY BODY </h1> </body>";
-            responseStream << "</html>";
-        };
-};
+    /**
+     * Started server
+     */
+    server.run();
+}
 
-class HandleFactory: public Poco::Net::HTTPRequestHandlerFactory
+int main( int argc, char** argv )
 {
-    public:
-        Poco::Net::HTTPRequestHandler* createRequestHandler( const Poco::Net::HTTPServerRequest& request )
-        {
-            if(request.getURI() == "/")
-            {
-                return new PageHandler();
-            }
 
-            return new PageHandler();
-        }
-};
+    /**
+     * Init oatpp Enviroment
+     */
+    oatpp::base::Environment::init();
 
-class ServerApplication: public Poco::Util::ServerApplication
-{
-    protected:
-        int main( const std::vector<std::string> &args )
-        {
-            Poco::UInt16 port = 9999;
+    /**
+     * Run app
+     */
+    run();
 
-            Poco::Net::ServerSocket socket(port);
-            
-            Poco::Net::HTTPServerParams *pParams = new Poco::Net::HTTPServerParams();
+    oatpp::base::Environment::destroy();
 
-            pParams->setMaxQueued(100);
-            pParams->setMaxThreads(16);
-
-            Poco::Net::HTTPServer server(new HandleFactory(), socket, pParams);
-
-            server.start();
-            waitForTerminationRequest();
-            server.stop();
-
-            return EXIT_OK;
-        }
-};
-
-
-POCO_SERVER_MAIN(ServerApplication);
+    return 0;
+}

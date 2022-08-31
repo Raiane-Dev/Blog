@@ -19,6 +19,12 @@ RUN apt-get install --yes \
     unzip \
     libssl-dev \
     openssl \
+    librange-v3-dev \
+    ccache \
+    zlib1g-dev \
+    libjsoncpp-dev \
+    uuid-dev \
+    autoconf \
     tar
 
 ## MANAGER DEPENDENCIES
@@ -29,4 +35,5 @@ RUN git clone https://github.com/Microsoft/vcpkg.git && \
     ./vcpkg/bootstrap-vcpkg.sh && \
     ./vcpkg/vcpkg integrate install
 
-# RUN ["bash", "-c", "./vcpkg/vcpkg install poco"]
+RUN echo '"-DCMAKE_TOOLCHAIN_FILE=/app/libraries/vcpkg/scripts/buildsystems/vcpkg.cmake" > ./vcpkg/CMAKE.txt"'
+# CMD [ "bash -c", "./vcpkg/vcpkg install" ]

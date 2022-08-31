@@ -1,29 +1,3 @@
-# cmake_minimum_required(VERSION 3.4.1)
-
-# project(main)
-
-# # include_directories(
-#     # ./libraries/vcpkg_installed/x64-linux/share/poco
-# # )
-
-# # LINK_DIRECTORIES(
-# #     ./libraries/vcpkg_installed/x64-linux/lib
-# # )
-# add_library(math SHARED ./libraries/vcpkg_installed/x64-linux/include/Poco)
-
-# # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-# find_package(Poco CONFIG REQUIRED)
-# # find_package(Poco Foundation Net XML Zip Data JSON)
-
-# target_link_libraries(main PRIVATE Poco::Net Poco::XML Poco::Zip Poco::Data)
-    # this is heuristically generated, and may not be correct
-#    find_package(Poco CONFIG REQUIRED)
-    # note: 9 additional targets are not displayed.
-#    target_link_libraries(main PRIVATE Poco::Net Poco::XML Poco::Zip Poco::Data)
-# add_executable(main src/Server.cpp)
-
-
 cmake_minimum_required(VERSION 3.13.4)
 
 project(Application)
@@ -31,13 +5,33 @@ project(Application)
 set(CMAKE_PREFIX_PATH /app/libraries/vcpkg_installed/x64-linux)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /app/build/bin)
 
-find_package(Poco REQUIRED Foundation Net XML Zip Data JSON Util)
+# set(CMAKE_CXX_STANDARD 11)
+# set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# option(RUN_PROD "Prod?" OFF)
+
+# add_definitions(
+#     -DCONFIG_PATH="${CMAKE_CURRENT_LIST_DIR}/database.json"
+# )
+
+add_library( 
+    ${PROJECT_NAME}-lib
+    /app/src/includes/config/Database.hpp
+)
+target_include_directories(${project_name}-lib
+    PUBLIC /app/src/includes
+)
+
+find_package(oatpp 1.3.0 REQUIRED)
+find_package(oatpp-postgresql 1.3.0 REQUIRED)
 
 add_executable(
-    main app/Server.cpp
+    ${PROJECT_NAME}
+    app/Server.cpp
 )
 
 target_link_libraries(
-    main
-    PRIVATE Poco::Foundation Poco::Util Poco::Net
+    ${PROJECT_NAME}
+    PRIVATE oatpp::oatpp 
+    PRIVATE oatpp::oatpp-postgresql
 )
