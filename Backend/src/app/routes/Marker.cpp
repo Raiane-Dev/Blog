@@ -1,8 +1,6 @@
 #include "../../includes/routes/Marker.hpp"
 
-Routes::Marker::Marker()
+std::shared_ptr<Routes::Marker::OutgoingResponse> Routes::Marker::handle(const std::shared_ptr<IncomingRequest>& request)
 {
-    // OATPP_LOGGI("Application", "Server running in port %s", port);
-
-    // router->route("GET", "/hello", std::make_shared<Controllers::UserController>());
+    return ResponseFactory::createResponse(Status::CODE_200, "Hello");
 }

@@ -3,13 +3,11 @@
 #include <iostream>
 #include <oatpp/web/server/HttpRequestHandler.hpp>
 
-#include "../controllers/UserController.hpp"
-
 namespace Routes
 {
-    class Marker
+    class Marker : public oatpp::web::server::HttpRequestHandler
     {
         public:
-            Marker();
+            std::shared_ptr<OutgoingResponse> handle(const std::shared_ptr<IncomingRequest>& request) override;
     };
 };

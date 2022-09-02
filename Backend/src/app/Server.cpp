@@ -5,8 +5,8 @@
 #include <oatpp/network/Server.hpp>
 #include <oatpp/network/tcp/server/ConnectionProvider.hpp>
 
-// #include "../includes/routes/Marker.hpp"
-#include "../includes/config/Database.hpp"
+#include "../includes/routes/Marker.hpp"
+// #include "../includes/config/Database.hpp"
 
 void run()
 {
@@ -17,8 +17,7 @@ void run()
      * Router for HTTP request routing
      */
     auto router = oatpp::web::server::HttpRouter::createShared();
-    // Routes::Marker routerMark = Routes::Marker{};
-    Config::Database;
+    router->route("GET", "/hello", std::make_shared<Routes::Marker>());
     
     /**
      * HTTP connection handler with router
