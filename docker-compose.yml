@@ -9,6 +9,7 @@ services:
       - ./Backend/build/:/app/build
       - ./Backend/src/:/app/src
       - ./Backend/libraries/:/app/libraries
+    env_file: ./Backend/src/.env
     ports:
       - 80:80
       - 8088:8088
@@ -17,7 +18,7 @@ services:
       - database
     restart: always
  database:
-    container_name: database
+    container_name: db
     image: postgres:10.3
     env_file: ./Backend/src/.env
     volumes:

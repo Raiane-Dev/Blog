@@ -19,6 +19,7 @@ RUN apt-get install --yes \
     unzip \
     libssl-dev \
     openssl \
+    python3 \
     librange-v3-dev \
     ccache \
     zlib1g-dev \

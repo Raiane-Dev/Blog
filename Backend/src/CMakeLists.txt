@@ -4,32 +4,50 @@ project(Application)
 
 set(CMAKE_PREFIX_PATH /app/libraries/vcpkg_installed/x64-linux)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /app/build/bin)
-
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
 option(RUN_PROD "Prod?" OFF)
 
-add_definitions(
-    -DCONFIG_PATH="${CMAKE_CURRENT_LIST_DIR}/database.json"
-)
+set (CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(VCPKG_TARGET_ARCHITECTURE x64)
+set(VCPKG_CRT_LINKAGE dynamic)
+set(VCPKG_LIBRARY_LINKAGE static)
+set(VCPKG_CMAKE_SYSTEM_NAME Linux)
 
-find_package(oatpp 1.3.0 REQUIRED)
-# find_package(oatpp-postgresql 1.3.0 REQUIRED)
-# add_library(${PROJECT_NAME}-lib STATIC /app/src/app/routes/Marker.cpp)
+# link_directories(/usr/lib)
+# include_directories(/usr/include)
+
+find_package(PkgConfig)
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(plog CONFIG REQUIRED)
+find_package(OpenSSL REQUIRED)
+find_library(PQ_LIB pq)
+find_package(libpqxx CONFIG REQUIRED)
+
+pkg_check_modules(Pistache REQUIRED IMPORTED_TARGET libpistache)
 
 add_executable(
     ${PROJECT_NAME}
-    /app/src/includes/routes/Marker.hpp
-    /app/src/app/routes/Marker.cpp
-
+    includes/config/Logger.hpp 
+    app/config/Logger.cpp 
+    includes/config/Connect.hpp 
+    app/config/Connect.cpp 
     app/Server.cpp
 )
 
+include_directories(
+    ${PROJECT_NAME} PRIVATE includes/config
+)
+# add_library(
+#     ${PROJECT_NAME}-libs SHARED 
+#     app/config/Connect.cpp
+# )
 
 target_link_libraries(
-    ${PROJECT_NAME}
-    PUBLIC oatpp::oatpp
-    # PUBLIC ${PROJECT_NAME}-lib 
-    # PRIVATE oatpp::oatpp-postgresql
+    ${PROJECT_NAME} 
+    PUBLIC OpenSSL::SSL OpenSSL::Crypto
+    PRIVATE plog::plog
+    PRIVATE pq
+    PRIVATE libpqxx::pqxx
+    PRIVATE PkgConfig::Pistache
 )

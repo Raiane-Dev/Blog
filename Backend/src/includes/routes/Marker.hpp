@@ -1,13 +1,17 @@
 #pragma once
 
 #include <iostream>
-#include <oatpp/web/server/HttpRequestHandler.hpp>
+#include <pistache/endpoint.h>
 
 namespace Routes
 {
-    class Marker : public oatpp::web::server::HttpRequestHandler
+    class Marker : public Pistache::Http::Handler
     {
-        public:
-            std::shared_ptr<OutgoingResponse> handle(const std::shared_ptr<IncomingRequest>& request) override;
+        HTTP_PROTOTYPE(Marker);
+
+        void onRequest( const Pistache::Http::Request&, Pistache::Http::ResponseWriter writer) override
+        {
+            writer.send(Pistache::Http::Code::Ok, "Hello world!");
+        }
     };
 };
