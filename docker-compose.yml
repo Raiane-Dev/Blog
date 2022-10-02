@@ -16,9 +16,11 @@ services:
     tty: true
     links:
       - database
+    depends_on:
+      - database
     restart: always
  database:
-    container_name: db
+    container_name: database
     image: postgres:10.3
     env_file: ./Backend/src/.env
     volumes:
@@ -26,6 +28,7 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+    hostname: database
 volumes:
   app:
     driver: Backend

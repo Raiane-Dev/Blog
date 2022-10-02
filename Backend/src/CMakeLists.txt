@@ -17,6 +17,8 @@ set(VCPKG_CMAKE_SYSTEM_NAME Linux)
 # link_directories(/usr/lib)
 # include_directories(/usr/include)
 
+include_directories(HEADER_FILES /app/src/includes)
+
 find_package(PkgConfig)
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(plog CONFIG REQUIRED)
@@ -28,10 +30,15 @@ pkg_check_modules(Pistache REQUIRED IMPORTED_TARGET libpistache)
 
 add_executable(
     ${PROJECT_NAME}
+    includes/config/Connect.hpp 
+    app/config/Connect.cpp
+    
     includes/config/Logger.hpp 
     app/config/Logger.cpp 
-    includes/config/Connect.hpp 
-    app/config/Connect.cpp 
+    
+    includes/utils/CommandQuery.hpp
+    app/utils/CommandQuery.cpp
+
     app/Server.cpp
 )
 
