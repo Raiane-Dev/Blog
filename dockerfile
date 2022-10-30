@@ -31,8 +31,7 @@ RUN apt-get install --yes \
     medusa \
      libpq-dev \
      postgresql \
-     libc6-dev \
-    golang-go
+     libc6-dev
 
 ## MANAGER DEPENDENCIES
 RUN rm -rf /var/lib/apt/lists/*
@@ -44,5 +43,5 @@ RUN git clone https://github.com/Microsoft/vcpkg.git && \
 
 # ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/src/test/
 
-RUN echo '"-DCMAKE_TOOLCHAIN_FILE=/app/libraries/vcpkg/scripts/buildsystems/vcpkg.cmake" > ./vcpkg/CMAKE.txt"'
+RUN echo "-DCMAKE_TOOLCHAIN_FILE=/app/libraries/vcpkg/scripts/buildsystems/vcpkg.cmake" > ./vcpkg/CMAKE.txt
 # CMD [ "bash -c", "./vcpkg/vcpkg install" ]

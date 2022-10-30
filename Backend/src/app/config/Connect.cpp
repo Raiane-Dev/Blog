@@ -6,7 +6,7 @@ Config::Connect::Connect()
 {
     std::stringstream line;
     line << "dbname=" << this->dbname <<
-    " port=5432 " << "hostaddr=172.20.0.2 " <<
+    " port=5432 " << "hostaddr=database" <<
     " user=" << this->dbuser << " password=" << this->dbpass;
 
     this->data_line = line.str();

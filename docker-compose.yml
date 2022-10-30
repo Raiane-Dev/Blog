@@ -14,8 +14,9 @@ services:
       - 80:80
       - 8088:8088
     tty: true
+    stdin_open: true
     links:
-      - database
+      - "database:database"
     depends_on:
       - database
     restart: always

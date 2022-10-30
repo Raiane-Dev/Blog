@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <pistache/endpoint.h>
-
 namespace Routes
 {
     class Marker : public Pistache::Http::Handler

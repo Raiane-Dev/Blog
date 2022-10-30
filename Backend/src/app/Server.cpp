@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
   // Utils::CommandQuery *query = new Utils::CommandQuery();
   // query->getter("SELECT * FROM emplers");
 
-  // Http::listenAndServe<Marker>(Pistache::Address("*:8088"));
+  Http::listenAndServe<Marker>(Pistache::Address("*:8088"));
 
   return 0;
 }
