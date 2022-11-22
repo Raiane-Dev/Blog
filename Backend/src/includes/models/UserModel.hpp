@@ -1,6 +1,8 @@
 #pragma once
+
 #include <cstdlib>
 #include <string>
+#include <list>
 
 namespace Models
 {
@@ -18,5 +20,9 @@ namespace Models
         public:
 
             bool create( UserProperties& user ) const;
+
+            bool update( UserProperties& user );
+
+            std::list<UserProperties> selectAll(): const;
     };
 }

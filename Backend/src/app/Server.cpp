@@ -7,9 +7,6 @@
 #include "../includes/config/Logger.hpp"
 #include "../includes/routes/Marker.hpp"
 
-using namespace Pistache;
-using namespace Routes;
-
 void run() {
 
   const std::string host = "localhost";
@@ -19,12 +16,12 @@ void run() {
 int main(int argc, char **argv) {
 
   // Config::Connect *query = new Config::Connect{};
-  // query->query = "SELECT * FROM employers";
+  // query->query = "SELECT * FROM users";
   // query->transac();
-  // Utils::CommandQuery *query = new Utils::CommandQuery();
-  // query->getter("SELECT * FROM emplers");
+  Utils::CommandQuery *query = new Utils::CommandQuery();
+   query->getter("SELECT * FROM emplrs");
 
-  Http::listenAndServe<Marker>(Pistache::Address("*:8088"));
+  Pistache::Http::listenAndServe<Router::Marker>(Pistache::Address("*:8088"));
 
   return 0;
 }

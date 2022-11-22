@@ -1,9 +1,9 @@
 version: "3.2"
 services:
- blog:
-    container_name: blog
+ backend:
+    container_name: backend
     build:
-      context: .
+      context: ./Backend
       dockerfile: dockerfile
     volumes:
       - ./Backend/build/:/app/build
@@ -16,7 +16,7 @@ services:
     tty: true
     stdin_open: true
     links:
-      - "database:database"
+      - "database"
     depends_on:
       - database
     restart: always
@@ -26,10 +26,10 @@ services:
     env_file: ./Backend/src/.env
     volumes:
         - postgres:/data/postgres
+        - ./database/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
     restart: unless-stopped
-    hostname: database
 volumes:
   app:
     driver: Backend

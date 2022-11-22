@@ -6,16 +6,10 @@ Config::Connect::Connect()
 {
     std::stringstream line;
     line << "dbname=" << this->dbname <<
-    " port=5432 " << "hostaddr=database" <<
+    " port=5432 " << "hostaddr=172.24.0.1" <<
     " user=" << this->dbuser << " password=" << this->dbpass;
 
     this->data_line = line.str();
-    // connection connect( line.str() );
-    // work state(connect);
-    // state.exec("SELECT * FROM emplooyers");
-    // state.commit();
-
-
 }
 
 void Config::Connect::transac()
