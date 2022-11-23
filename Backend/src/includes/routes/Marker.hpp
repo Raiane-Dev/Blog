@@ -6,6 +6,7 @@
 #include <pistache/router.h>
 
 #include "../controllers/UserController.hpp"
+#include "../controllers/ArticleController.hpp"
 
 using namespace Pistache;
 using namespace Rest;
@@ -13,16 +14,19 @@ using namespace Controllers;
 
 namespace Router
 {
-    class Marker : public Pistache::Http::Handler
+    class Marker : public Http::Handler
     {
         private:
             Rest::Router router;
-
-        public:
             HTTP_PROTOTYPE(Marker);
 
-            void onRequest( const Pistache::Http::Request&, Pistache::Http::ResponseWriter writer) override;
+        public:
+            Marker();
 
+            void onRequest( const Http::Request&, Http::ResponseWriter writer) override;
+
+            void init();
+            void start();
             void settupRouter();
 
     };

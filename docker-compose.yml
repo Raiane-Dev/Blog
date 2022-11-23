@@ -9,6 +9,7 @@ services:
       - ./Backend/build/:/app/build
       - ./Backend/src/:/app/src
       - ./Backend/libraries/:/app/libraries
+      - postgres:/data/postgres
     env_file: ./Backend/src/.env
     ports:
       - 80:80
@@ -16,10 +17,14 @@ services:
     tty: true
     stdin_open: true
     links:
-      - "database"
+      - "database:database"
     depends_on:
       - database
     restart: always
+    networks:
+      networking:
+        ipv4_address: 172.20.1.0
+
  database:
     container_name: database
     image: postgres:10.3
@@ -30,7 +35,17 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+    networks:
+      networking:
+        ipv4_address: 172.20.2.0
 volumes:
   app:
     driver: Backend
   postgres:
+
+networks:
+  networking:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          ip_range: 172.28.5.0/24

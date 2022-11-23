@@ -17,13 +17,31 @@ namespace Config
 
             std::string data_line;
 
-        public:
-            Connect();
-            
-            const char* query;
-            void transac();
-            void consult();
+        protected:
+            connection connect;
+            work database;
 
+        public:
+            Connect(): connect(this->data_line), database(this->connect)
+            {
+                 try
+                {
+                    std::stringstream line;
+                    // line << "dbname=" << this->dbname <<
+                    // " port=5432 " << "hostaddr=172.20.2.0" <<
+                    // " user=" << this->dbuser << " password=" << this->dbpass;
+
+                    line << "dbname=" << "blog" <<
+                    " port=5432 " << "hostaddr=0.0.0.0" <<
+                    " user=" << "admin" << " password=" << "root";
+
+                    this->data_line = line.str();
+                } 
+                catch(const std::exception &e)
+                {
+                    std::printf(e.what());
+                }
+            }
 
             ~Connect();
     };

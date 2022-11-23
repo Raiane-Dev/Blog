@@ -13,6 +13,7 @@ set(VCPKG_TARGET_ARCHITECTURE x64)
 set(VCPKG_CRT_LINKAGE dynamic)
 set(VCPKG_LIBRARY_LINKAGE static)
 set(VCPKG_CMAKE_SYSTEM_NAME Linux)
+set(nlohmann-json_IMPLICIT_CONVERSIONS OFF)
 
 # link_directories(/usr/lib)
 # include_directories(/usr/include)
@@ -34,7 +35,9 @@ add_executable(
 
     app/config/Logger.cpp 
     
-    app/utils/CommandQuery.cpp
+    app/utils/Queries.cpp
+
+    app/controllers/ArticleController.cpp
 
     app/routes/Marker.cpp
 

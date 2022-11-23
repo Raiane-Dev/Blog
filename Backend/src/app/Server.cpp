@@ -3,7 +3,7 @@
 
 #include <pistache/endpoint.h>
 
-#include "../includes/utils/CommandQuery.hpp"
+#include "../includes/utils/Queries.hpp"
 #include "../includes/config/Logger.hpp"
 #include "../includes/routes/Marker.hpp"
 
@@ -15,13 +15,14 @@ void run() {
 
 int main(int argc, char **argv) {
 
-  // Config::Connect *query = new Config::Connect{};
-  // query->query = "SELECT * FROM users";
-  // query->transac();
-  Utils::CommandQuery *query = new Utils::CommandQuery();
-   query->getter("SELECT * FROM emplrs");
 
-  Pistache::Http::listenAndServe<Router::Marker>(Pistache::Address("*:8088"));
+  Utils::Queries query{};
+  query.from("employeers").method("select").columns("name");
+  std::cout << query.query;
+
+  // Router::Marker *marker = new Router::Marker();
+
+  // delete marker;
 
   return 0;
 }

@@ -23,6 +23,6 @@ namespace Models
 
             bool update( UserProperties& user );
 
-            std::list<UserProperties> selectAll(): const;
+            std::list<UserProperties> selectAll();
     };
-}
+};

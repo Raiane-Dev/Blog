@@ -29,9 +29,8 @@ RUN apt-get install --yes \
     libtool \
     musl-dev \
     medusa \
-     libpq-dev \
-     postgresql \
-     libc6-dev
+    libpq-dev \
+    libc6-dev
 
 ## MANAGER DEPENDENCIES
 RUN rm -rf /var/lib/apt/lists/*
