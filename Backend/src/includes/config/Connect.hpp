@@ -11,38 +11,16 @@ namespace Config
     class Connect
     {
         private:
-            const char* dbname = std::getenv("POSTGRES_DB");
-            const char* dbuser = std::getenv("POSTGRES_USER");
-            const char* dbpass = std::getenv("POSTGRES_PASSWORD");
-
-            std::string data_line;
-
-        protected:
-            connection connect;
-            work database;
+            // const char* dbname = std::getenv("POSTGRES_DB");
+            // const char* dbuser = std::getenv("POSTGRES_USER");
+            // const char* dbpass = std::getenv("POSTGRES_PASSWORD");
 
         public:
-            Connect(): connect(this->data_line), database(this->connect)
-            {
-                 try
-                {
-                    std::stringstream line;
-                    // line << "dbname=" << this->dbname <<
-                    // " port=5432 " << "hostaddr=172.20.2.0" <<
-                    // " user=" << this->dbuser << " password=" << this->dbpass;
+            Connect();
 
-                    line << "dbname=" << "blog" <<
-                    " port=5432 " << "hostaddr=0.0.0.0" <<
-                    " user=" << "admin" << " password=" << "root";
+           work* database;
+            // static connection instanceOf();
 
-                    this->data_line = line.str();
-                } 
-                catch(const std::exception &e)
-                {
-                    std::printf(e.what());
-                }
-            }
-
-            ~Connect();
+            virtual ~Connect();
     };
 }

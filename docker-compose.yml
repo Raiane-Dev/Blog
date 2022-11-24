@@ -9,7 +9,6 @@ services:
       - ./Backend/build/:/app/build
       - ./Backend/src/:/app/src
       - ./Backend/libraries/:/app/libraries
-      - postgres:/data/postgres
     env_file: ./Backend/src/.env
     ports:
       - 80:80

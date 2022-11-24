@@ -22,7 +22,7 @@ namespace Utils
             Queries& set( std::string data );
             Queries& values( std::string data );
             Queries& columns( std::string column );
-            auto exec();
+            int exec();
 
             ~Queries();
     };

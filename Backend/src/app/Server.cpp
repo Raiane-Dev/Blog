@@ -18,8 +18,7 @@ int main(int argc, char **argv) {
 
   Utils::Queries query{};
   query.from("employeers").method("select").columns("name");
-  std::cout << query.query;
-
+  query.exec();
   // Router::Marker *marker = new Router::Marker();
 
   // delete marker;
