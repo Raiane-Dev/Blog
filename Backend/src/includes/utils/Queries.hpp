@@ -8,11 +8,7 @@ namespace Utils
 {
     class Queries : public Config::Connect
     {
-        private:
-            typedef Config::Connect Super;
-
         public:
-            std::string query = "";
 
             Queries();
 
@@ -22,8 +18,7 @@ namespace Utils
             Queries& set( std::string data );
             Queries& values( std::string data );
             Queries& columns( std::string column );
-            int exec();
+            result exec();
 
-            ~Queries();
     };
 }

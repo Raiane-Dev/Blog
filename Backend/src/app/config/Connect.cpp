@@ -2,14 +2,20 @@
 
 Config::Connect::Connect()
 {
+    
+}
+
+result Config::Connect::instanceOf()
+{
     std::stringstream dataline;
+    result ret;
 
-    dataline <<  "dbname=" << "blog" <<
-                    " port=5432 " << "hostaddr=172.20.2.0" <<
-                    " user=" << "admin" << " password=" << "root";
+    dataline <<  "dbname=" << this->dbname <<
+                    " port=5432 " << "hostaddr=" << this->dbhost <<
+                    " user=" << this->dbuser << " password=" << this->dbpass;
 
-    // try
-    // {
+    try
+    {
         connection connect(dataline.str());
         if( connect.is_open() )
         {
@@ -17,14 +23,15 @@ Config::Connect::Connect()
         }
         work db(connect);
         this->database = &db;
-    // }
-    // catch( const std::exception &err )
-    // {
-    //     std::printf(err.what());
-    // }
+        ret = this->database->exec(this->query);
+    }
+    catch( const std::exception &err )
+    {
+        std::printf(err.what());
 
-}
+        std::abort();
+    }
 
-Config::Connect::~Connect()
-{
+    return ret;
+
 }

@@ -4,11 +4,6 @@ Utils::Queries::Queries()
 {
 }
 
-Utils::Queries::~Queries()
-{
-
-}
-
 Utils::Queries& Utils::Queries::method( std::string method )
 {
     return *this;
@@ -58,13 +53,10 @@ Utils::Queries& Utils::Queries::from( std::string table )
     return *this;
 }
 
-int Utils::Queries::exec()
+result Utils::Queries::exec()
 {
-    auto response = this->database->exec(this->query);
+    result response = this->instanceOf();
 
-    std::printf("" + response.size());
-
-    // return result;
-    return 0;
+    return response;
 
 }
