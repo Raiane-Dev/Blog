@@ -1,55 +1,89 @@
 #include "../../includes/utils/Queries.hpp"
 
+/**
+ * SELECT * FROM <TABLE> WHERE <CONDITIONAL>
+ * INSERT INTO <TABLE> <COLUMNS> VALUES <VALUES>
+ * UPDATE <TABLE> SET <DATA> WHERE <CONDITIONAL>
+ * DELETE <TABLE> WHERE <CONDITIONAL>
+ */
 Utils::Queries::Queries()
 {
 }
 
-Utils::Queries& Utils::Queries::method( std::string method )
+Utils::Queries& Utils::Queries::method( Utils::Queries::type method )
 {
-    return *this;
-}
+    std::string sql;
 
-Utils::Queries& Utils::Queries::set( std::string data )
-{
-    return *this;
-}
-
-Utils::Queries& Utils::Queries::values( std::string data )
-{
-    return *this;
-}
-
-Utils::Queries& Utils::Queries::columns( std::string column )
-{
-    std::string sql = column;
-
-    this->query.append(sql);
-    return *this;
-}
-
-Utils::Queries& Utils::Queries::where( std::vector<std::string> clausules )
-{
-    std::stringstream sql;
-
-    for( auto clausule : clausules )
+    switch(method)
     {
-        /**
-         * @clausule0 COLUMN_ONE
-            * @clausule1 OPERATOR
-            * @clausule2 COLUMN_TWO
-            * @clausule3 AND | OR
-            */
-        sql << clausule[0] +clausule[1] + clausule[2] + clausule[3];
+        case insert:
+            sql = "INSERT INTO";
+            break;
+        case update:
+            sql = "UPDATE";
+            break;
+        case select:
+            sql = "SELECT * FROM";
+            break;
+        case remove:
+            sql = "DELETE";
+            break;
     }
 
-    this->query.append("WHERE " + sql.str());
+    this->query.push_back(
+        std::make_pair(0, sql)
+    );
     return *this;
 }
 
 Utils::Queries& Utils::Queries::from( std::string table )
 {
-    std::string sql = "SELECT * FROM " + table;
-    this->query.append( sql );
+    this->query.push_back(
+        std::make_pair(1, table)
+    );
+    return *this;
+}
+
+Utils::Queries& Utils::Queries::set( std::string data )
+{
+    std::string sql = "SET (" + data + ")";
+
+    this->query.push_back(
+        std::make_pair(3, sql)
+    );
+    
+    return *this;
+}
+
+Utils::Queries& Utils::Queries::values( std::string data )
+{
+    std::string sql = "VALUES ('" + data + "')";
+
+    this->query.push_back(
+        std::make_pair(3, sql)
+    );
+
+    return *this;
+}
+
+Utils::Queries& Utils::Queries::columns( std::string column )
+{
+    this->query.push_back(
+        std::make_pair(2,"(" + column + ")")
+    );
+
+    return *this;
+}
+
+Utils::Queries& Utils::Queries::where( std::string clausules )
+{
+    std::stringstream sql;
+    sql << clausules;
+
+    this->query.emplace_back(
+        std::make_pair(5, "WHERE " + sql.str())
+    );
+
     return *this;
 }
 

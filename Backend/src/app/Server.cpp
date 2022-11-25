@@ -17,7 +17,11 @@ int main(int argc, char **argv) {
 
 
   Utils::Queries query{};
-  query.from("users").method("select");
+  query
+    .from("users")
+    .values("r")
+    .columns("name, password, email, age")
+    .method(Utils::Queries::type::insert);
   auto body = query.exec();
 
   std::cout << body.size();

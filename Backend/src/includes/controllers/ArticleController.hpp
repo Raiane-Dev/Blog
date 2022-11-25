@@ -1,7 +1,10 @@
 #pragma  once
 
-#include "../routes/Marker.hpp"
+#include <vector>
 #include <nlohmann/json.hpp>
+#include <exception>
+
+#include "../routes/Marker.hpp"
 #include "../models/ArticleModel.hpp"
 
 using namespace Pistache;

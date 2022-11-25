@@ -12,9 +12,14 @@ namespace Utils
 
             Queries();
 
+            enum type
+            {
+                insert, update, remove, select
+            };
+
             Queries& from(  std::string table );
-            Queries& where( std::vector<std::string> clausules );
-            Queries& method( std::string method );
+            Queries& where( std::string clausules );
+            Queries& method( type method );
             Queries& set( std::string data );
             Queries& values( std::string data );
             Queries& columns( std::string column );

@@ -26,6 +26,7 @@ find_package(plog CONFIG REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_library(PQ_LIB pq)
 find_package(libpqxx CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 pkg_check_modules(Pistache REQUIRED IMPORTED_TARGET libpistache)
 
@@ -59,4 +60,5 @@ target_link_libraries(
     PRIVATE pq
     PRIVATE libpqxx::pqxx
     PRIVATE PkgConfig::Pistache
+    PRIVATE nlohmann_json::nlohmann_json
 )

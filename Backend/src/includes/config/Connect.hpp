@@ -2,6 +2,8 @@
 
 #include <exception>
 #include <cstdlib>
+#include <vector>
+#include <utility>
 #include <pqxx/pqxx>
 
 using namespace pqxx;
@@ -17,11 +19,12 @@ namespace Config
             const char* dbhost = std::getenv("POSTGRES_HOST");
 
         protected:
-            std::string query;
+            std::vector<std::pair<int, std::string>> query;
 
         public:
             Connect();
             result instanceOf();
+            std::string sanitize();
             work *database;
     };
 }

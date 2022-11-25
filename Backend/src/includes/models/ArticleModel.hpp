@@ -1,14 +1,16 @@
 #pragma once
 
-#include <list>
+#include <vector>
 #include <string>
+#include "../includes/utils/Queries.hpp"
 
 namespace Models
 {
     struct ArticleProperties
     {
         int id;
-        std::string name;
+        std::string title;
+        std::string body;
     };
 
     class ArticleModel
@@ -16,9 +18,9 @@ namespace Models
         public:
             ArticleModel();
 
-            bool insert(  ArticleProperties& body );
+            bool insert( std::string body );
 
-            bool update(  ArticleProperties& body );
+            bool update( std::string body );
 
             ~ArticleModel();
     };

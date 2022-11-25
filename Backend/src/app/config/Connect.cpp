@@ -23,7 +23,8 @@ result Config::Connect::instanceOf()
         }
         work db(connect);
         this->database = &db;
-        ret = this->database->exec(this->query);
+        std::string sql = this->sanitize();
+        ret = this->database->exec(sql);
     }
     catch( const std::exception &err )
     {
@@ -35,3 +36,17 @@ result Config::Connect::instanceOf()
     return ret;
 
 }
+
+std::string Config::Connect::sanitize()
+{
+    std::string create_sql;
+
+    sort(this->query.begin(), this->query.end());
+    for( auto value : this->query )
+    {
+        create_sql.append( " " + value.second + " " );
+    }
+
+    std::printf(create_sql.c_str());
+    return create_sql;
+};
