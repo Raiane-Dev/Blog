@@ -7,7 +7,7 @@ void Controllers::ArticleController::create( const Pistache::Rest::Request& requ
     data.Parse(body.c_str());
     assert(data.IsObject());
     Models::ArticleProperties schema{
-        std::time(NULL),
+        std::time(nullptr),
         data["title"].GetString(), 
         data["body"].GetString() 
     };

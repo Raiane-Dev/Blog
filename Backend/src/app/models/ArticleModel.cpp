@@ -15,6 +15,7 @@ bool Models::ArticleModel::insert( Models::ArticleProperties& data )
         query
             .from("articles")
             .values(send)
+            .columns("title, body")
             .method(Utils::Queries::type::insert);
 
         auto body = query.exec();

@@ -25,6 +25,7 @@ result Config::Connect::instanceOf()
         this->database = &db;
         std::string sql = this->sanitize();
         ret = this->database->exec(sql);
+        this->database->commit();
     }
     catch( const std::exception &err )
     {
