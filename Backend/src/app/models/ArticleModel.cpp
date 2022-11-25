@@ -5,21 +5,31 @@ Models::ArticleModel::ArticleModel()
 
 }
 
-bool Models::ArticleModel::insert( std::string data )
+bool Models::ArticleModel::insert( Models::ArticleProperties& data )
 {
-    Utils::Queries query{};
-    query
-        .from("articles")
-        .values(data)
-        .columns("title, body")
-        .method(Utils::Queries::type::insert);
-        
-    auto body = query.exec();
+    std::string send = fmt::format("('{}', '{}')", data.title, data.body);
 
-    return true;
+    try
+    {
+        Utils::Queries query{};
+        query
+            .from("articles")
+            .values(send)
+            .method(Utils::Queries::type::insert);
+
+        auto body = query.exec();
+
+        return true;
+    }
+    catch(const std::exception& err)
+    {
+        std::printf(err.what());
+        return false;
+    }
+
 }
 
-bool Models::ArticleModel::update( std::string body )
+bool Models::ArticleModel::update( Models::ArticleProperties& body )
 {
     return true;
 }

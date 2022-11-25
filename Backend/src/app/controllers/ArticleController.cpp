@@ -3,15 +3,19 @@
 void Controllers::ArticleController::create( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response )
 {
     const std::string body = request.body();
-    auto data = nlohmann::json::parse(body);
-
-    Models::ArticleProperties values{data};
-    nlohmann::json convert_data = data;
+    rapidjson::Document data;
+    data.Parse(body.c_str());
+    assert(data.IsObject());
+    Models::ArticleProperties schema{
+        std::time(NULL),
+        data["title"].GetString(), 
+        data["body"].GetString() 
+    };
 
     try
     {
         Models::ArticleModel model{};
-        model.insert( convert_data );
+        model.insert( schema );
     }
     catch(const std::exception& e)
     {

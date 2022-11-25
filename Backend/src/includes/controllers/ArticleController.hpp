@@ -1,8 +1,10 @@
 #pragma  once
 
 #include <vector>
-#include <nlohmann/json.hpp>
 #include <exception>
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 
 #include "../routes/Marker.hpp"
 #include "../models/ArticleModel.hpp"

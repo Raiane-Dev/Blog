@@ -57,7 +57,7 @@ Utils::Queries& Utils::Queries::set( std::string data )
 
 Utils::Queries& Utils::Queries::values( std::string data )
 {
-    std::string sql = "VALUES ('" + data + "')";
+    std::string sql = "VALUES " + data;
 
     this->query.push_back(
         std::make_pair(3, sql)

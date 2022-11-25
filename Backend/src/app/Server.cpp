@@ -13,22 +13,23 @@ void run() {
   const uint16_t port = 8088;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv) 
+{
 
 
-  Utils::Queries query{};
-  query
-    .from("users")
-    .values("r")
-    .columns("name, password, email, age")
-    .method(Utils::Queries::type::insert);
-  auto body = query.exec();
+  // Utils::Queries query{};
+  // query
+  //   .from("users")
+  //   .values("r")
+  //   .columns("name, password, email, age")
+  //   .method(Utils::Queries::type::insert);
+  // auto body = query.exec();
 
-  std::cout << body.size();
+  // std::cout << body.size();
 
-  // Router::Marker *marker = new Router::Marker();
+  Router::Marker *marker = new Router::Marker();
 
-  // delete marker;
+  delete marker;
 
   return 0;
 }

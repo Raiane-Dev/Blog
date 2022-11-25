@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <string>
+#include <fmt/core.h>
 #include "../includes/utils/Queries.hpp"
 
 namespace Models
@@ -18,9 +18,9 @@ namespace Models
         public:
             ArticleModel();
 
-            bool insert( std::string body );
+            bool insert( ArticleProperties& body );
 
-            bool update( std::string body );
+            bool update( ArticleProperties& body );
 
             ~ArticleModel();
     };

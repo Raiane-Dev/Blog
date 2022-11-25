@@ -13,7 +13,6 @@ set(VCPKG_TARGET_ARCHITECTURE x64)
 set(VCPKG_CRT_LINKAGE dynamic)
 set(VCPKG_LIBRARY_LINKAGE static)
 set(VCPKG_CMAKE_SYSTEM_NAME Linux)
-set(nlohmann-json_IMPLICIT_CONVERSIONS OFF)
 
 # link_directories(/usr/lib)
 # include_directories(/usr/include)
@@ -26,7 +25,7 @@ find_package(plog CONFIG REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_library(PQ_LIB pq)
 find_package(libpqxx CONFIG REQUIRED)
-find_package(nlohmann_json CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 
 pkg_check_modules(Pistache REQUIRED IMPORTED_TARGET libpistache)
 
@@ -37,6 +36,8 @@ add_executable(
     app/config/Logger.cpp 
     
     app/utils/Queries.cpp
+
+    app/models/ArticleModel.cpp
 
     app/controllers/ArticleController.cpp
 
@@ -60,5 +61,5 @@ target_link_libraries(
     PRIVATE pq
     PRIVATE libpqxx::pqxx
     PRIVATE PkgConfig::Pistache
-    PRIVATE nlohmann_json::nlohmann_json
+    PRIVATE fmt::fmt-header-only
 )

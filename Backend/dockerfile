@@ -21,6 +21,7 @@ RUN apt-get install --yes \
     openssl \
     python3 \
     librange-v3-dev \
+    rapidjson-dev \
     ccache \
     zlib1g-dev \
     libjsoncpp-dev \
