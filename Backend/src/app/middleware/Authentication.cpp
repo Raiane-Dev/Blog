@@ -1,6 +1,6 @@
 #include "../../includes/middleware/Authentication.hpp"
 
-void Middleware::Authentication::checker( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response )
+bool Middleware::Authentication::checker( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response )
 {
     std::string token = request.cookies().get("x-access-token").value;
 
@@ -15,7 +15,16 @@ void Middleware::Authentication::checker( const Pistache::Rest::Request& request
         verifier.verify( decoded );
 
         response.send(Pistache::Http::Code::Accepted, decoded.get_payload());
-
+        if( !decoded.get_payload().empty() )
+        {
+            std::cout << "LOGADO";
+            return true;
+        }
+    }
+    else
+    {
+        std::cout << "NAO LOGADO";
+        return false;
     }
 }
 

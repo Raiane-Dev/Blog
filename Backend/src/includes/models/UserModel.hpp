@@ -1,8 +1,8 @@
 #pragma once
 
-#include <cstdlib>
 #include <string>
-#include <list>
+#include <fmt/core.h>
+#include "../includes/utils/Queries.hpp"
 
 namespace Models
 {
@@ -21,8 +21,12 @@ namespace Models
 
             bool create( UserProperties& user ) const;
 
-            bool update( UserProperties& user );
+            bool insert( UserProperties& body );
 
-            std::list<UserProperties> selectAll();
+            bool update( UserProperties& body );
+
+            result hasMany();
+
+            result hasOne( Models::UserProperties& body );
     };
 };

@@ -1,18 +1,22 @@
 #pragma once
 
+#include <exception>
+#include "../utils/Tratament.hpp"
+#include "../routes/Marker.hpp"
+#include "../models/UserModel.hpp"
+
+using namespace Pistache;
+using namespace Models;
+
 namespace Controllers
 {
 
-    class UserController
+    namespace UserController
     {
+        void list( const Rest::Request&, Http::ResponseWriter response );
 
-        public:
-            UserController();
-
-            bool create()
-            {
-                return true;
-            }
-
+        void login( const Rest::Request&, Http::ResponseWriter response );
+        
+        void create( const Rest::Request& request, Http::ResponseWriter response );
     };
 };

@@ -11,7 +11,7 @@ namespace Middleware
 
     namespace Authentication
     {
-        void checker( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response );
+        bool checker( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response );
 
         void generate( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response );
     };
