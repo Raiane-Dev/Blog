@@ -31,12 +31,10 @@ void Controllers::ArticleController::list( const Pistache::Rest::Request& reques
     try
     {
         Models::ArticleModel model{};
-        result ret = model.hasMany();
-
-
+        result values = model.hasMany();
         
         std::string columns[] = {"id", "title", "body", "createdAt"};
-        std::string ret_json = Utils::Tratament::serializeJson(ret, columns );
+        std::string ret_json = Utils::Tratament::serializeJson( values, columns );
 
         response.send(Http::Code::Accepted, ret_json);
     }

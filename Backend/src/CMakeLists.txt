@@ -14,6 +14,13 @@ set(VCPKG_CRT_LINKAGE dynamic)
 set(VCPKG_LIBRARY_LINKAGE static)
 set(VCPKG_CMAKE_SYSTEM_NAME Linux)
 
+set(CMAKE_THREAD_LIBS_INIT "-lpthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+set(CMAKE_HAVE_THREADS_LIBRARY 1)
+set(CMAKE_USE_WIN32_THREADS_INIT 0)
+set(CMAKE_USE_PTHREADS_INIT 1)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
 # link_directories(/usr/lib)
 # include_directories(/usr/include)
 
@@ -26,6 +33,7 @@ find_package(OpenSSL REQUIRED)
 find_library(PQ_LIB pq)
 find_package(libpqxx CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
+find_path(JWT_CPP_INCLUDE_DIRS "jwt-cpp/base.h")
 
 pkg_check_modules(Pistache REQUIRED IMPORTED_TARGET libpistache)
 
@@ -36,6 +44,8 @@ add_executable(
     app/config/Logger.cpp 
     
     app/utils/Queries.cpp
+
+    app/middleware/Authentication.cpp
 
     app/utils/Tratament.cpp
 
@@ -64,4 +74,5 @@ target_link_libraries(
     PRIVATE libpqxx::pqxx
     PRIVATE PkgConfig::Pistache
     PRIVATE fmt::fmt-header-only
+    PRIVATE ${JWT_CPP_INCLUDE_DIRS}
 )

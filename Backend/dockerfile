@@ -33,7 +33,8 @@ RUN apt-get install --yes \
     libpq-dev \
     libc6-dev \
     postgresql \
-    postgresql-contrib
+    postgresql-contrib \
+    lsof
 
 ## MANAGER DEPENDENCIES
 RUN rm -rf /var/lib/apt/lists/*

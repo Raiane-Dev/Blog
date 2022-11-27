@@ -7,6 +7,7 @@
 
 #include "../controllers/UserController.hpp"
 #include "../controllers/ArticleController.hpp"
+#include "../middleware/Authentication.hpp"
 
 using namespace Pistache;
 using namespace Rest;
