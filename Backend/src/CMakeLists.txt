@@ -37,6 +37,8 @@ add_executable(
     
     app/utils/Queries.cpp
 
+    app/utils/Tratament.cpp
+
     app/models/ArticleModel.cpp
 
     app/controllers/ArticleController.cpp

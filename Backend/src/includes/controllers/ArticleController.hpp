@@ -1,11 +1,7 @@
 #pragma  once
 
 #include <exception>
-#include <ctime>
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
-
+#include "../utils/Tratament.hpp"
 #include "../routes/Marker.hpp"
 #include "../models/ArticleModel.hpp"
 

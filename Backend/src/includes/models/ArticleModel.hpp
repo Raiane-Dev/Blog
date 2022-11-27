@@ -22,6 +22,8 @@ namespace Models
 
             bool update( ArticleProperties& body );
 
+            result hasMany();
+
             ~ArticleModel();
     };
 };

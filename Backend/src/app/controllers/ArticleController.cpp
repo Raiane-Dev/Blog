@@ -7,7 +7,7 @@ void Controllers::ArticleController::create( const Pistache::Rest::Request& requ
     data.Parse(body.c_str());
     assert(data.IsObject());
     Models::ArticleProperties schema{
-        std::time(nullptr),
+        1,
         data["title"].GetString(), 
         data["body"].GetString() 
     };
@@ -26,8 +26,24 @@ void Controllers::ArticleController::create( const Pistache::Rest::Request& requ
     response.send(Http::Code::Created, body);
 }
 
-void Controllers::ArticleController::list(  const Rest::Request&, Http::ResponseWriter response )
+void Controllers::ArticleController::list( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response )
 {
+    try
+    {
+        Models::ArticleModel model{};
+        result ret = model.hasMany();
 
-    response.send(Http::Code::Accepted, "Hellow");
+
+        
+        std::string columns[] = {"id", "title", "body", "createdAt"};
+        std::string ret_json = Utils::Tratament::serializeJson(ret, columns );
+
+        response.send(Http::Code::Accepted, ret_json);
+    }
+    catch( const std::exception& err)
+    {
+        std::cerr << err.what() << "\n";
+        response.send(Http::Code::Failed_Dependency, err.what());
+    }
+
 }

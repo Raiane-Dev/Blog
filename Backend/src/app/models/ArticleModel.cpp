@@ -35,6 +35,19 @@ bool Models::ArticleModel::update( Models::ArticleProperties& body )
     return true;
 }
 
+result Models::ArticleModel::hasMany()
+{
+    Utils::Queries query{};
+    query
+        .from("articles")
+        .method(Utils::Queries::type::select);
+
+    result response = query.exec();
+
+    return  response;
+}
+
+
 Models::ArticleModel::~ArticleModel()
 {
 
