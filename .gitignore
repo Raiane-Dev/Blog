@@ -1,5 +1,5 @@
 .history
 .vscode
 Backend/.env
-Backend/libraries/*
+Backend/libraries/vcpkg*
 Backend/app/bin/*

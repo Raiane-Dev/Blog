@@ -47,9 +47,8 @@ std::string Utils::Tratament::serializeJson( pqxx::result data, std::string* col
 std::string Utils::Tratament::serializeCrypt( std::string pass )
 {
 
-  const int works = static_cast<int>(*std::getenv("CRYPT_WORK_FACTOR"));
   Botan::AutoSeeded_RNG seed;
-  std::string hash = Botan::generate_bcrypt(pass, seed, works);
+  std::string hash = Botan::generate_bcrypt(pass, seed);
 
   return hash;
 }

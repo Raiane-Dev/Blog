@@ -3,6 +3,7 @@
 #include <string>
 #include <fmt/core.h>
 #include "../includes/utils/Queries.hpp"
+#include "../includes/utils/Tratament.hpp"
 
 namespace Models
 {
@@ -13,6 +14,7 @@ namespace Models
         std::string _username;
         std::string _email;
         std::string _password;
+        std::string _role;
     };
 
     class UserModel
@@ -28,7 +30,7 @@ namespace Models
 
             result hasMany();
 
-            result hasOne( Models::UserProperties& body );
+            bool hasOne( Models::UserProperties& body );
 
             ~UserModel();
     };

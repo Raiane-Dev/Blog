@@ -8,14 +8,14 @@ void Controllers::UserController::login( const Rest::Request& request, Http::Res
     assert(data.IsObject());
     Models::UserProperties schema{ };
     schema._email = data["email"].GetString();
-    schema._password = Utils::Tratament::serializeCrypt( data["password"].GetString() );
+    schema._password = data["password"].GetString();
 
     try
     {
         Models::UserModel model{};
-        result values = model.hasOne( schema );
+        bool values = model.hasOne( schema );
 
-        if( values.size() != 0 )
+        if( values )
         {
             auto token = Middleware::Authentication::generate();
 
@@ -24,7 +24,7 @@ void Controllers::UserController::login( const Rest::Request& request, Http::Res
                 .add(Pistache::Http::Cookie("x-access-token", token));
             
             response
-                .send(Http::Code::Accepted, "logged" + schema._password);
+                .send(Http::Code::Accepted, "logged" );
         }
         else
         {
@@ -45,9 +45,10 @@ void Controllers::UserController::create( const Rest::Request& request, Http::Re
     assert(data.IsObject());
     Models::UserProperties schema{
         1,
-        data["username"].GetString(), 
+        data["name"].GetString(), 
         data["email"].GetString(),
-        Utils::Tratament::serializeCrypt( data["password"].GetString() )
+        Utils::Tratament::serializeCrypt( data["password"].GetString() ),
+        "USER"
     };
 
     try

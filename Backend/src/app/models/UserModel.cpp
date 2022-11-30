@@ -5,9 +5,9 @@ Models::UserModel::UserModel()
 
 }
 
-result Models::UserModel::hasOne( Models::UserProperties& data )
+bool Models::UserModel::hasOne( Models::UserProperties& data )
 {
-  std::string conditional = fmt::format("email = '{}' AND password = '{}'", data._email, data._password);
+  std::string conditional = fmt::format("email = '{}'", data._email);
 
     Utils::Queries query{};
     query
@@ -17,12 +17,19 @@ result Models::UserModel::hasOne( Models::UserProperties& data )
 
     result response = query.exec();
 
-    return  response;
+    if(Utils::Tratament::verifyCrypt(data._password, response[0][2].c_str()))
+    {
+        return true;
+    }
+    else
+    {
+        return  false;
+    }
 }
 
 bool Models::UserModel::insert( Models::UserProperties& data )
 {
-    std::string send = fmt::format("('{}', '{}', '{}')", data._username, data._email, data._password);
+    std::string send = fmt::format("('{}', '{}', '{}', '{}')", data._username, data._email, data._password, data._role);
 
     try
     {
@@ -30,7 +37,7 @@ bool Models::UserModel::insert( Models::UserProperties& data )
         query
             .from("users")
             .values(send)
-            .columns("username, email, password, role")
+            .columns("name, email, password, role")
             .method(Utils::Queries::type::insert);
 
         auto body = query.exec();

@@ -27,4 +27,6 @@ void Router::Marker::settupRouter()
     Routes::Post(this->router, "/login", Routes::bind( &UserController::login ));
     Routes::Get(this->router, "/login", Routes::bind( &Middleware::Authentication::checker ));
 
+    Routes::Post(this->router, "/register", Routes::bind( &UserController::create ));
+
 }
