@@ -24,6 +24,18 @@ services:
       networking:
         ipv4_address: 172.20.1.0
 
+ frontend:
+  container_name: front
+  build:
+    context: ./Frontend
+    dockerfile: dockerfile
+  env_file: ./Frontend/.env
+  restart: always
+  ports:
+    - 5000:5000
+  tty: true
+  command: ["nginx", "-g", "daemon off;"]
+
  database:
     container_name: database
     image: postgres:10.3
@@ -37,6 +49,9 @@ services:
     networks:
       networking:
         ipv4_address: 172.20.2.0
+
+
+
 volumes:
   app:
     driver: Backend
