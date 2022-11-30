@@ -35,31 +35,30 @@ std::string Utils::Tratament::serializeJson( pqxx::result data, std::string* col
             );
         }
     }
-
-
-    // for( auto data_row : data )
-    // {
-    //     ++index;
-    //     for(auto row : data_row )
-    //     {
-    //         document.AddMember("a", data_row, allocator);
-    //     }
-    // }
-
-      // for( auto const &row : data )
-      // {
-      //     for (auto const &field : row)
-      //     {
-      //     std::cout << field.c_str() << '\t' << std::endl;
-      //     } ;
-      // };
-
  
 	rapidjson::StringBuffer strbuf;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
 	document.Accept(writer);
  
 	return strbuf.GetString();
+}
+
+
+std::string Utils::Tratament::serializeCrypt( std::string pass )
+{
+
+  const int works = static_cast<int>(*std::getenv("CRYPT_WORK_FACTOR"));
+  Botan::AutoSeeded_RNG seed;
+  std::string hash = Botan::generate_bcrypt(pass, seed, works);
+
+  return hash;
+}
+
+bool Utils::Tratament::verifyCrypt( std::string pass, std::string hash )
+{
+  bool verify_pass = Botan::check_bcrypt(pass, hash);
+
+  return verify_pass;
 }
 
 Utils::Tratament::~Tratament()

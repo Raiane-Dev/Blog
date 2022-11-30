@@ -4,6 +4,7 @@ project(Application)
 
 set(CMAKE_PREFIX_PATH /app/libraries/vcpkg_installed/x64-linux)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /app/build/bin)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/modules")
 option(RUN_PROD "Prod?" OFF)
 
 set (CMAKE_CXX_STANDARD 20)
@@ -35,6 +36,8 @@ find_package(libpqxx CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_path(JWT_CPP_INCLUDE_DIRS "jwt-cpp/base.h")
 
+find_package(Botan REQUIRED)
+
 pkg_check_modules(Pistache REQUIRED IMPORTED_TARGET libpistache)
 
 add_executable(
@@ -49,7 +52,11 @@ add_executable(
 
     app/utils/Tratament.cpp
 
+    app/models/UserModel.cpp
+
     app/models/ArticleModel.cpp
+
+    app/controllers/UserController.cpp
 
     app/controllers/ArticleController.cpp
 
@@ -75,4 +82,5 @@ target_link_libraries(
     PRIVATE PkgConfig::Pistache
     PRIVATE fmt::fmt-header-only
     PRIVATE ${JWT_CPP_INCLUDE_DIRS}
+    PRIVATE Botan::Botan
 )

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdlib>
+#include <string>
 #include <iostream>
 #include <chrono>
 #include <jwt-cpp/jwt.h>
@@ -13,7 +14,7 @@ namespace Middleware
     {
         bool checker( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response );
 
-        void generate( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response );
+        std::string generate();
     };
 
 };

@@ -18,6 +18,7 @@ namespace Models
     class UserModel
     {
         public:
+            UserModel();
 
             bool create( UserProperties& user ) const;
 
@@ -28,5 +29,7 @@ namespace Models
             result hasMany();
 
             result hasOne( Models::UserProperties& body );
+
+            ~UserModel();
     };
 };

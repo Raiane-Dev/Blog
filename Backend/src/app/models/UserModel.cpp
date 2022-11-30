@@ -7,7 +7,7 @@ Models::UserModel::UserModel()
 
 result Models::UserModel::hasOne( Models::UserProperties& data )
 {
-  std::string conditional = fmt::format("email = '{}' AND password = '{}')", data._email, data._password);
+  std::string conditional = fmt::format("email = '{}' AND password = '{}'", data._email, data._password);
 
     Utils::Queries query{};
     query
@@ -30,7 +30,7 @@ bool Models::UserModel::insert( Models::UserProperties& data )
         query
             .from("users")
             .values(send)
-            .columns("username, email, password")
+            .columns("username, email, password, role")
             .method(Utils::Queries::type::insert);
 
         auto body = query.exec();
@@ -55,7 +55,7 @@ result Models::UserModel::hasMany()
     Utils::Queries query{};
     query
         .from("users")
-        .method(Utils::Queries::type::update);
+        .method(Utils::Queries::type::select);
 
     result response = query.exec();
 

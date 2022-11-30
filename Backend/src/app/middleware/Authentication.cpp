@@ -28,7 +28,7 @@ bool Middleware::Authentication::checker( const Pistache::Rest::Request& request
     }
 }
 
-void Middleware::Authentication::generate( const Pistache::Rest::Request& request, Pistache::Http::ResponseWriter response )
+std::string Middleware::Authentication::generate()
 {
     auto token = jwt::create()
                         .set_issuer("auth0")
@@ -38,12 +38,7 @@ void Middleware::Authentication::generate( const Pistache::Rest::Request& reques
                         .set_expires_at(std::chrono::system_clock::now() + std::chrono::seconds{36000})
                         .sign(jwt::algorithm::hs256{ std::getenv("SECRET") });
 
-    response
-        .cookies()
-        .add(Pistache::Http::Cookie("x-access-token", token));
-
-    response
-        .send(Pistache::Http::Code::Accepted, token);
+    return token;
 
 }
 

@@ -34,17 +34,13 @@ RUN apt-get install --yes \
     libc6-dev \
     postgresql \
     postgresql-contrib \
-    lsof
+    lsof \
+    botan
 
 ## MANAGER DEPENDENCIES
 RUN rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app/libraries
-# RUN git clone https://github.com/Microsoft/vcpkg.git && \
-#     ./vcpkg/bootstrap-vcpkg.sh && \
-#     ./vcpkg/vcpkg integrate install
+COPY Makefile .
+# RUN make versioner_libs
 
 # ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/src/test/
-
-# RUN echo "-DCMAKE_TOOLCHAIN_FILE=/app/libraries/vcpkg/scripts/buildsystems/vcpkg.cmake" > ./vcpkg/CMAKE.txt
-# CMD [ "bash -c", "./vcpkg/vcpkg install" ]

@@ -3,12 +3,19 @@ CREATE TABLE users (
 	name VARCHAR ( 80 ) UNIQUE NOT NULL,
 	password VARCHAR ( 255 ) NOT NULL,
 	email VARCHAR ( 255 ) UNIQUE NOT NULL,
-	age integer not null
+	role enum('USER', 'ROOT')
+);
+
+CREATE TABLE categories (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE articles (
 	id SERIAL PRIMARY KEY,
 	title VARCHAR ( 100 ) UNIQUE NOT NULL,
 	body TEXT NOT NULL,
+	FOREIGN KEY(category) REFERENCES categories(id),
+	tags JSON NOT NULL,
 	posting_date DATE NOT NULL DEFAULT CURRENT_DATE
 );
