@@ -11,6 +11,8 @@ namespace Models
         int id;
         std::string title;
         std::string body;
+        int category;
+        std::string tags;
     };
 
     class ArticleModel

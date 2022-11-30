@@ -9,7 +9,9 @@ void Controllers::ArticleController::create( const Pistache::Rest::Request& requ
     Models::ArticleProperties schema{
         1,
         data["title"].GetString(), 
-        data["body"].GetString() 
+        data["body"].GetString(),
+        data["category"].GetInt(),
+        data["tags"].GetString()
     };
 
     try
@@ -33,7 +35,7 @@ void Controllers::ArticleController::list( const Pistache::Rest::Request& reques
         Models::ArticleModel model{};
         result values = model.hasMany();
         
-        std::string columns[] = {"id", "title", "body", "createdAt"};
+        std::string columns[] = {"id", "title", "body", "category", "tags", "createdAt"};
         std::string ret_json = Utils::Tratament::serializeJson( values, columns );
 
         response.send(Http::Code::Accepted, ret_json);

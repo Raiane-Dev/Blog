@@ -7,7 +7,7 @@ Models::ArticleModel::ArticleModel()
 
 bool Models::ArticleModel::insert( Models::ArticleProperties& data )
 {
-    std::string send = fmt::format("('{}', '{}')", data.title, data.body);
+    std::string send = fmt::format("('{}', '{}', '{}', '{}')", data.title, data.body, data.category, data.tags);
 
     try
     {
@@ -15,7 +15,7 @@ bool Models::ArticleModel::insert( Models::ArticleProperties& data )
         query
             .from("articles")
             .values(send)
-            .columns("title, body")
+            .columns("title, body, category, tags")
             .method(Utils::Queries::type::insert);
 
         auto body = query.exec();
