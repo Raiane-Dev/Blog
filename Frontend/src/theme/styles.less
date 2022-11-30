@@ -140,13 +140,20 @@ footer.ant-layout-footer {
     background-color: @clean;
     border-left: 1px solid @clean-weak;
     width: 20%;
-    display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
+    min-height: 90vh;
+
+    & .link-href {
+        font-size: .9rem !important;
+    }
+
+    & .ant-row {
+        display:inline-grid ;
+    }
 
     & .ant-row.box {
-        min-height: 90vh;
         width: 100%;
         display: block;
         padding: 2.5rem 1rem !important;
@@ -181,6 +188,22 @@ section.root-content {
 
     & main.items {
         margin-top: 2rem;
+
+        & .list-items {
+            display: block;
+
+            & .box {
+                width: 100%;
+
+                & .ant-typography {
+                    padding: 1em;
+    
+                    &.content {
+                        -webkit-line-clamp: 8;
+                    }
+                }    
+            }
+        }
 
         & > .ant-row {
             display: flex;
